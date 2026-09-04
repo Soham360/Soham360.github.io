@@ -38,12 +38,59 @@
       { id: 'footer', file: 'partials/footer.html' }
     ];
 
-    includes.forEach(item => {
-      fetch(item.file)
-        .then(res => res.text())
-        .then(data => {
-          document.getElementById(item.id).outerHTML = data;
+    // Helper function to scroll to a section reliably
+    function scrollToSection(sectionId) {
+      const target = document.getElementById(sectionId);
+      if (!target) return;
+
+      let attempts = 0;
+      const scroll = () => {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        attempts++;
+        if (attempts < 3) {
+          setTimeout(scroll, 200);
+        }
+      };
+      setTimeout(scroll, 100);
+    }
+
+    // Load all HTML partials asynchronously
+    Promise.all(
+      includes.map(item =>
+        fetch(item.file)
+          .then(res => res.text())
+          .then(data => {
+            const container = document.getElementById(item.id);
+            if (container) {
+              container.outerHTML = data;
+            }
+          })
+      )
+    ).then(() => {
+      // 1. Check for stored section target from sub-pages
+      const pendingSection = sessionStorage.getItem('scrollToSection');
+      if (pendingSection) {
+        sessionStorage.removeItem('scrollToSection');
+        scrollToSection(pendingSection);
+      }
+
+      // 2. Attach click listeners to dynamically injected navbar links
+      document.querySelectorAll('.nav-links a[href*="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const href = this.getAttribute('href');
+          const targetId = href.split('#')[1];
+
+          if (targetId) {
+            e.preventDefault();
+            scrollToSection(targetId);
+
+            // Keep address bar clean without adding '#'
+            if (window.location.hash) {
+              history.replaceState(null, null, window.location.pathname);
+            }
+          }
         });
+      });
     });
   </script>
   <script src="assets/js/main.js"></script>

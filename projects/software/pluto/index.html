@@ -84,6 +84,7 @@
 </footer>
 
 <script>
+  // 1. Mobile navigation menu toggle
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');
 
@@ -92,13 +93,24 @@
     navToggle.setAttribute('aria-expanded', isOpen);
   });
 
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.classList.remove('open');
-      navToggle.setAttribute('aria-expanded', 'false');
+  // 2. Intercept nav links pointing to index.html sections
+  document.querySelectorAll('.nav-links a[href*="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      const targetId = href.split('#')[1];
+
+      if (targetId) {
+        e.preventDefault();
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+
+        // Store target section ID in session storage before redirecting
+        sessionStorage.setItem('scrollToSection', targetId);
+        // Redirect cleanly to index.html without '#' in the URL
+        window.location.href = '/index.html';
+      }
     });
   });
 </script>
-
 </body>
 </html>
