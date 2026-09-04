@@ -85,7 +85,7 @@
 
         <p>
           A mechanical phone holder designed as a compact, functional
-          assembly. The design was developed in CAD and modeled as a
+          assembly. The design was developed in SolidWorks and modeled as a
           complete assembly with moving components.
         </p>
 
@@ -101,12 +101,12 @@
 
         <div class="project-info-item">
           <span class="project-info-label">Tools</span>
-          <span class="project-info-value">CAD · 3D Printing</span>
+          <span class="project-info-value">SolidWorks · 3D Printing</span>
         </div>
 
         <div class="project-info-item">
           <span class="project-info-label">Status</span>
-          <span class="project-info-value">Completed</span>
+          <span class="project-info-value">Completed    &#x2714;</span>
         </div>
 
       </div>
@@ -116,7 +116,7 @@
 
       <div class="project-media-row">
 
-        <div class="project-media">
+        <div class="project-media" style="overflow: hidden;">
 
           <video
             class="project-video"
@@ -125,8 +125,9 @@
             loop
             playsinline
             preload="auto"
-            src="../../assets/models/PhoneHolder/PhoneHolder.mp4"
-            aria-label="Phone Holder assembly animation">
+            src="../../cad-design/phone-holder/PhoneHolder.mp4"
+            aria-label="Phone Holder assembly animation"
+            style="width: 110%; height: 110%; object-fit: cover;">
           </video>
 
         </div>
@@ -135,12 +136,14 @@
         <div class="project-model">
 
           <model-viewer
-            src="../../assets/models/PhoneHolder/PhoneHolder.glb"
+            src="../../cad-design/phone-holder/PhoneHolder.glb"
             alt="Interactive 3D model of the Phone Holder"
             camera-controls
             touch-action="pan-y"
-            shadow-intensity="1"
-            exposure="1"
+            shadow-intensity="3"
+            shadow-softness="0.5"
+            exposure="0.5"
+            tone-mapping="neutral"
             interaction-prompt="none">
           </model-viewer>
 
