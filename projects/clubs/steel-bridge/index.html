@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>UW Steel Bridge — Soham Kamat</title>
+
+  <link rel="icon" type="image/png" href="../../favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <link href="../../../assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <nav class="site-nav">
+    <div class="wrap">
+
+      <a href="../../index.html" class="brand">
+        <span class="brand-mark">[</span>SK<span class="brand-mark">]</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/index.html#about">About</a></li>
+        <li><a href="/index.html#education">Education</a></li>
+        <li><a href="/index.html#experience">Experience</a></li>
+        <li><a href="/index.html#projects">Projects</a></li>
+        <li><a href="/index.html#skills">Skills</a></li>
+        <li><a href="/index.html#contact">Contact</a></li>
+        <li>
+          <a
+            href="/assets/resume/Kamat_Soham_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="nav-cta"
+          >
+            Resume ↗
+          </a>
+        </li>
+      </ul>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+    </div>
+  </nav>
+
+
+  <main class="project-page">
+
+    <div class="wrap">
+
+      <header class="project-page-header">
+
+        <p class="eyebrow">UW · Structural Fabrication</p>
+
+        <h1>UW Steel Bridge</h1>
+
+        <p>
+          Designing and fabricating components for a competition steel
+          bridge as part of the UW Steel Bridge Team construction subteam.
+        </p>
+
+      </header>
+
+
+      <div class="project-info">
+
+        <div class="project-info-item">
+          <span class="project-info-label">Role</span>
+          <span class="project-info-value">Construction Subteam</span>
+        </div>
+
+        <div class="project-info-item">
+          <span class="project-info-label">Tools</span>
+          <span class="project-info-value">Welding · Milling · Structural Design</span>
+        </div>
+
+        <div class="project-info-item">
+          <span class="project-info-label">Since</span>
+          <span class="project-info-value">October 2025</span>
+        </div>
+
+      </div>
+
+
+      <section class="project-content">
+
+        <h2>Overview</h2>
+
+        <p>
+          I work on the University of Washington Steel Bridge Team,
+          contributing to the fabrication and assembly of a competition
+          steel bridge.
+        </p>
+
+        <h2>Fabrication</h2>
+
+        <p>
+          My work involves fabricating structural members and working
+          within a small construction subteam to assemble and refine
+          bridge components.
+        </p>
+
+        <h2>Competition</h2>
+
+        <p>
+          The bridge is designed and fabricated for intercollegiate
+          competition, where the structure must balance performance,
+          efficiency, and the competition requirements.
+        </p>
+
+        <div class="project-placeholder">
+          <span>Project Images</span>
+          <small>
+            Add fabrication photos, welding photos, CAD drawings, or competition photos here.
+          </small>
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <footer>
+    <div
+      class="wrap"
+      style="display:flex; justify-content:space-between; width:100%;"
+    >
+      <span>© 2026 Soham Kamat</span>
+    </div>
+  </footer>
+
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jobify — Soham Kamat</title>
+
+  <link rel="icon" type="image/png" href="../../favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link href="../../../assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <a href="../../index.html" class="brand">
+      <span class="brand-mark">[</span>SK<span class="brand-mark">]</span>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+        <li><a href="/index.html#about">About</a></li>
+        <li><a href="/index.html#education">Education</a></li>
+        <li><a href="/index.html#experience">Experience</a></li>
+        <li><a href="/index.html#projects">Projects</a></li>
+        <li><a href="/index.html#skills">Skills</a></li>
+        <li><a href="/index.html#contact">Contact</a></li>
+        <li>
+          <a
+            href="/assets/resume/Kamat_Soham_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="nav-cta"
+          >
+            Resume ↗
+          </a>
+        </li>
+      </ul>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<main class="project-page">
+  <div class="wrap">
+
+    <header class="project-page-header">
+      <p class="eyebrow">Software</p>
+      <h1>Jobify — LMS Platform</h1>
+      <p>
+        A learning management system project developed as a software application.
+      </p>
+    </header>
+
+    <section class="project-content">
+
+      <h2>Project</h2>
+
+      <p>
+        Add a description of Jobify, the features you worked on, and your
+        specific contribution to the project here.
+      </p>
+
+      <div class="project-links">
+        <a href="https://github.com/Men-In-Brown/Jobify" target="_blank" rel="noopener noreferrer">
+          Repository ↗
+        </a>
+      </div>
+
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%;">
+    <span>© 2026 Soham Kamat</span>
+  </div>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
+
+</body>
+</html>

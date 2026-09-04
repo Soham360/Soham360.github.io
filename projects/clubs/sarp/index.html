@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SARP — Propulsion &amp; Structures — Soham Kamat</title>
+
+  <link rel="icon" type="image/png" href="../../favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <link href="../../../assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <nav class="site-nav">
+    <div class="wrap">
+
+      <a href="../../index.html" class="brand">
+        <span class="brand-mark">[</span>SK<span class="brand-mark">]</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/index.html#about">About</a></li>
+        <li><a href="/index.html#education">Education</a></li>
+        <li><a href="/index.html#experience">Experience</a></li>
+        <li><a href="/index.html#projects">Projects</a></li>
+        <li><a href="/index.html#skills">Skills</a></li>
+        <li><a href="/index.html#contact">Contact</a></li>
+        <li>
+          <a
+            href="/assets/resume/Kamat_Soham_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="nav-cta"
+          >
+            Resume ↗
+          </a>
+        </li>
+      </ul>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+    </div>
+  </nav>
+
+
+  <main class="project-page">
+
+    <div class="wrap">
+
+      <header class="project-page-header">
+
+        <p class="eyebrow">UW · Aerospace</p>
+
+        <h1>SARP — Propulsion &amp; Structures</h1>
+
+        <p>
+          Designing and machining propulsion and structural components
+          for UW's student-built rocket systems.
+        </p>
+
+      </header>
+
+
+      <div class="project-info">
+
+        <div class="project-info-item">
+          <span class="project-info-label">Role</span>
+          <span class="project-info-value">Propulsion &amp; Structural Design</span>
+        </div>
+
+        <div class="project-info-item">
+          <span class="project-info-label">Tools</span>
+          <span class="project-info-value">SolidWorks · Precision Machining</span>
+        </div>
+
+        <div class="project-info-item">
+          <span class="project-info-label">Since</span>
+          <span class="project-info-value">October 2025</span>
+        </div>
+
+      </div>
+
+
+      <section class="project-content">
+
+        <h2>Overview</h2>
+
+        <p>
+          I work with the Society for Advanced Rocket Propulsion at the
+          University of Washington on propulsion and structural hardware
+          for student-built rocket systems.
+        </p>
+
+        <h2>Fabrication</h2>
+
+        <p>
+          My work includes interpreting technical engineering drawings,
+          preparing raw material, and operating shop equipment to
+          manufacture structural and propulsion components.
+        </p>
+
+        <h2>Design to Hardware</h2>
+
+        <p>
+          The project connects CAD and manufacturing. Components begin
+          as engineering designs and drawings before being turned into
+          physical hardware through machining and shop fabrication.
+        </p>
+
+        <div class="project-placeholder">
+          <span>Project Images</span>
+          <small>
+            Add machining photos, CAD screenshots, drawings, or finished hardware here.
+          </small>
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <footer>
+    <div
+      class="wrap"
+      style="display:flex; justify-content:space-between; width:100%;"
+    >
+      <span>© 2026 Soham Kamat</span>
+    </div>
+  </footer>
+
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  </script>
+
+</body>
+</html>

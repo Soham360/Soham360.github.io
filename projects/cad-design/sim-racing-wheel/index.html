@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Racing Sim Wheel — Soham Kamat</title>
+
+  <link rel="icon" type="image/png" href="../../favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <link href="../../../assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <nav class="site-nav">
+    <div class="wrap">
+
+      <a href="../../index.html" class="brand">
+        <span class="brand-mark">[</span>SK<span class="brand-mark">]</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/index.html#about">About</a></li>
+        <li><a href="/index.html#education">Education</a></li>
+        <li><a href="/index.html#experience">Experience</a></li>
+        <li><a href="/index.html#projects">Projects</a></li>
+        <li><a href="/index.html#skills">Skills</a></li>
+        <li><a href="/index.html#contact">Contact</a></li>
+        <li>
+          <a
+            href="/assets/resume/Kamat_Soham_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="nav-cta"
+          >
+            Resume ↗
+          </a>
+        </li>
+      </ul>
+
+      <button
+        class="nav-toggle"
+        id="navToggle"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+      >
+        <span></span><span></span><span></span>
+      </button>
+
+    </div>
+  </nav>
+
+
+  <main class="project-page">
+
+    <div class="wrap">
+
+
+      <header class="project-page-header">
+
+        <p class="eyebrow">Design / CAD</p>
+
+        <h1>Racing Sim Wheel</h1>
+
+        <p>
+          A custom 3D-printed sim racing steering wheel designed around
+          a USB-connected microcontroller and magnetic position sensing.
+          The project combines mechanical design, electronics, CAD,
+          fabrication, and embedded programming.
+        </p>
+
+      </header>
+
+
+      <div class="project-info">
+
+        <div class="project-info-item">
+          <span class="project-info-label">Category</span>
+          <span class="project-info-value">Mechanical / Electronics</span>
+        </div>
+
+        <div class="project-info-item">
+          <span class="project-info-label">Tools</span>
+          <span class="project-info-value">Fusion 360 · Arduino · 3D Printing</span>
+        </div>
+
+        <div class="project-info-item">
+          <span class="project-info-label">Status</span>
+          <span class="project-info-value">In Progress</span>
+        </div>
+
+      </div>
+
+
+      <section class="project-content">
+
+        <h2>Overview</h2>
+
+        <p>
+          The goal of this project is to build a functional sim racing
+          steering wheel from the ground up. The wheel is designed to
+          connect to a Windows computer over USB and report steering
+          position to the computer.
+        </p>
+
+        <h2>Mechanical Design</h2>
+
+        <p>
+          The wheel uses a steel shaft supported by bearings, with the
+          surrounding components designed to be 3D printed. The design
+          focuses on keeping the mechanism compact while allowing the
+          wheel to rotate through approximately 540 degrees.
+        </p>
+
+        <h2>Electronics</h2>
+
+        <p>
+          Steering position is measured using a magnetic rotary encoder
+          connected to a microcontroller. The controller reads the
+          steering position and communicates it to the computer through
+          USB.
+        </p>
+
+        <div class="project-placeholder">
+          <span>Images / GIFs</span>
+          <small>
+            Add project photos, CAD screenshots, or an assembly animation here.
+          </small>
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <footer>
+    <div
+      class="wrap"
+      style="display:flex; justify-content:space-between; width:100%;"
+    >
+      <span>© 2026 Soham Kamat</span>
+    </div>
+  </footer>
+
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  </script>
+
+</body>
+</html>

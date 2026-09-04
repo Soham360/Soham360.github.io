@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Phone Holder — Soham Kamat</title>
+  <meta
+    name="description"
+    content="Phone Holder mechanical design project by Soham Kamat."
+  >
+
+  <link rel="icon" type="image/png" href="../../favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <link href="../../../assets/css/style.css" rel="stylesheet">
+
+  <script
+    type="module"
+    src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js">
+  </script>
+</head>
+
+<body>
+
+  <!-- ===== Nav ===== -->
+
+  <nav class="site-nav">
+    <div class="wrap">
+
+      <a href="../../index.html" class="brand">
+        <span class="brand-mark">[</span>SK<span class="brand-mark">]</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/index.html#about">About</a></li>
+        <li><a href="/index.html#education">Education</a></li>
+        <li><a href="/index.html#experience">Experience</a></li>
+        <li><a href="/index.html#projects">Projects</a></li>
+        <li><a href="/index.html#skills">Skills</a></li>
+        <li><a href="/index.html#contact">Contact</a></li>
+        <li>
+          <a
+            href="/assets/resume/Kamat_Soham_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="nav-cta"
+          >
+            Resume ↗
+          </a>
+        </li>
+      </ul>
+
+      <button
+        class="nav-toggle"
+        id="navToggle"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+  </nav>
+
+
+  <!-- ===== Project ===== -->
+
+  <main class="project-page">
+
+    <div class="wrap">
+
+      <header class="project-page-header">
+
+        <p class="eyebrow">Design / CAD</p>
+
+        <h1>Phone Holder</h1>
+
+        <p>
+          A mechanical phone holder designed as a compact, functional
+          assembly. The design was developed in CAD and modeled as a
+          complete assembly with moving components.
+        </p>
+
+      </header>
+
+
+      <div class="project-info">
+
+        <div class="project-info-item">
+          <span class="project-info-label">Category</span>
+          <span class="project-info-value">Mechanical Design</span>
+        </div>
+
+        <div class="project-info-item">
+          <span class="project-info-label">Tools</span>
+          <span class="project-info-value">CAD · 3D Printing</span>
+        </div>
+
+        <div class="project-info-item">
+          <span class="project-info-label">Status</span>
+          <span class="project-info-value">Completed</span>
+        </div>
+
+      </div>
+
+
+      <!-- ===== Video + 3D Model ===== -->
+
+      <div class="project-media-row">
+
+        <div class="project-media">
+
+          <video
+            class="project-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+            src="../../assets/models/PhoneHolder/PhoneHolder.mp4"
+            aria-label="Phone Holder assembly animation">
+          </video>
+
+        </div>
+
+
+        <div class="project-model">
+
+          <model-viewer
+            src="../../assets/models/PhoneHolder/PhoneHolder.glb"
+            alt="Interactive 3D model of the Phone Holder"
+            camera-controls
+            touch-action="pan-y"
+            shadow-intensity="1"
+            exposure="1"
+            interaction-prompt="none">
+          </model-viewer>
+
+        </div>
+
+      </div>
+
+
+      <section class="project-content">
+
+        <h2>Overview</h2>
+
+        <p>
+          This project focused on designing a phone holder as a complete
+          mechanical assembly. The model was developed in CAD with the
+          individual components designed to work together as a single
+          mechanism.
+        </p>
+
+        <h2>Design</h2>
+
+        <p>
+          The design process involved creating the individual components,
+          assembling them together, and checking that the mechanism moved
+          as intended. The final assembly is shown above in both an
+          animated view and an interactive 3D model.
+        </p>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <!-- ===== Footer ===== -->
+
+  <footer>
+    <div
+      class="wrap"
+      style="display:flex; justify-content:space-between; width:100%;"
+    >
+      <span>© 2026 Soham Kamat</span>
+    </div>
+  </footer>
+
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  </script>
+
+</body>
+</html>
