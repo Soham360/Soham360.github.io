@@ -24,6 +24,7 @@
   <div id="footer"></div>
 
   <script>
+    
     const includes = [
       { id: 'nav', file: 'partials/nav.html' },
       { id: 'hero', file: 'partials/hero.html' },
@@ -53,6 +54,19 @@
       };
       setTimeout(scroll, 100);
     }
+
+    // Brand mark: smooth-scroll to top instead of reloading when already on home
+    document.addEventListener('click', function (e) {
+      const brand = e.target.closest('.brand');
+      if (!brand) return;
+
+      e.preventDefault();
+      scrollToSection('top');
+
+      if (window.location.hash) {
+        history.replaceState(null, null, window.location.pathname);
+      }
+    });
 
     // Load all HTML partials asynchronously
     Promise.all(
