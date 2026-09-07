@@ -23,9 +23,9 @@
 
     <ul class="nav-links" id="navLinks">
       <li><a href="/#about">About</a></li>
+      <li><a href="/#projects">Projects</a></li>
       <li><a href="/#education">Education</a></li>
       <li><a href="/#experience">Experience</a></li>
-      <li><a href="/#projects">Projects</a></li>
       <li><a href="/#skills">Skills</a></li>
       <li><a href="/#contact">Contact</a></li>
       <li>
@@ -53,21 +53,21 @@
       <p class="eyebrow">Web Application</p>
       <h1>Lyntax — Hangman Game for CS Learning</h1>
       <p>
-        An interactive learning tool designed to make studying computer science terms engaging and fun through gameplay.
+        A hangman-style game for drilling computer science vocabulary, built on a Flask API and a Vue frontend.
       </p>
     </header>
 
     <section class="project-content" style="margin-top: 0; padding-top: 0;">
       <h2 style="margin-top: 0;">Overview</h2>
       <p>
-        Lyntax is more than just a game; it’s an interactive educational platform engineered to help students memorize and study computer science terminology. Built with Python’s Flask framework for the backend REST API and Vue.js for the dynamic frontend, it provides an intuitive, responsive user experience hosted on Amazon EC2.
+        Lyntax turns memorizing CS terminology into hangman instead of flashcards. The backend is a Flask REST API pulling terms from a database, and the frontend is built in Vue.js for quick, responsive gameplay, hosted on Amazon EC2.
       </p>
 
       <h2>Key Features</h2>
       <ul>
-        <li><strong>Dynamic Word Selection:</strong> Fetches computer science terms from an extensive database.</li>
-        <li><strong>Progressive Reveal:</strong> Displays hidden word structures dynamically as correct guesses are entered.</li>
-        <li><strong>Interactive Visuals:</strong> Real-time hangman graphics updating dynamically to mirror incorrect guesses.</li>
+        <li><strong>Dynamic Word Selection:</strong> Pulls CS terms from a database instead of a fixed list, so the game doesn't repeat itself every round.</li>
+        <li><strong>Progressive Reveal:</strong> Letters fill in as you guess correctly, same rules as classic hangman.</li>
+        <li><strong>Interactive Visuals:</strong> The hangman graphic updates with every wrong guess.</li>
       </ul>
 
       <h2>Tech Stack</h2>

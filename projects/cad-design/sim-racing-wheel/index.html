@@ -28,9 +28,9 @@
 
       <ul class="nav-links" id="navLinks">
         <li><a href="/index.html#about">About</a></li>
+        <li><a href="/#projects">Projects</a></li>
         <li><a href="/index.html#education">Education</a></li>
         <li><a href="/index.html#experience">Experience</a></li>
-        <li><a href="/index.html#projects">Projects</a></li>
         <li><a href="/index.html#skills">Skills</a></li>
         <li><a href="/index.html#contact">Contact</a></li>
         <li>
@@ -70,10 +70,10 @@
         <h1>Racing Sim Wheel</h1>
 
         <p>
-          A custom 3D-printed sim racing steering wheel designed around
-          a USB-connected microcontroller and magnetic position sensing.
-          The project combines mechanical design, electronics, CAD,
-          fabrication, and embedded programming.
+          A 3D-printed sim racing steering wheel built around a magnetic
+          rotary encoder and a microcontroller that reports steering
+          position over USB. It touches mechanical design, electronics,
+          CAD, fabrication, and embedded programming.
         </p>
 
       </header>
@@ -104,28 +104,26 @@
         <h2>Overview</h2>
 
         <p>
-          The goal of this project is to build a functional sim racing
-          steering wheel from the ground up. The wheel is designed to
-          connect to a Windows computer over USB and report steering
-          position to the computer.
+          I wanted a wheel that actually works with PC racing games, not
+          just a display piece, so the whole build is centered on getting
+          real steering data to the computer over USB.
         </p>
 
         <h2>Mechanical Design</h2>
 
         <p>
-          The wheel uses a steel shaft supported by bearings, with the
-          surrounding components designed to be 3D printed. The design
-          focuses on keeping the mechanism compact while allowing the
-          wheel to rotate through approximately 540 degrees.
+          A steel shaft runs through bearings at the center, with
+          everything around it 3D printed. The tricky part was keeping
+          the mechanism compact while still giving the wheel roughly
+          540 degrees of rotation.
         </p>
 
         <h2>Electronics</h2>
 
         <p>
-          Steering position is measured using a magnetic rotary encoder
-          connected to a microcontroller. The controller reads the
-          steering position and communicates it to the computer through
-          USB.
+          A magnetic rotary encoder tracks the shaft's position, and a
+          microcontroller reads that value and sends it to the computer
+          over USB.
         </p>
 
         <div class="project-placeholder">
