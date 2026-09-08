@@ -463,7 +463,14 @@ section:last-of-type { border-bottom: none; }
 
 .tl-item li + li { margin-top: 6px; }
 
-/* Skills */
+/* ===================================================================
+   Skills — hairline rows, no boxes
+   Matches the rest of the site (Education, Experience, Contact): plain
+   columns divided by a top hairline, mono index numbers instead of
+   bullets or filled ticks. Certifications reuse the exact .contact-list
+   row pattern (label left, value right, hairline between) rather than
+   being isolated badge cards.
+=================================================================== */
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -471,17 +478,17 @@ section:last-of-type { border-bottom: none; }
 }
 
 .skill-col {
-  padding-top: 28px;
+  padding-top: 24px;
   border-top: 1px solid var(--line-strong);
 }
 
 .skill-col h3 {
-  font-size: 14px;
+  font-size: 12px;
   font-family: var(--font-mono);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: var(--steel-soft);
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 .skill-col ul {
@@ -490,24 +497,21 @@ section:last-of-type { border-bottom: none; }
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 11px;
 }
 
 .skill-col li {
   font-size: 15px;
   color: var(--ink);
-  padding-left: 16px;
-  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
 }
 
-.skill-col li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 8px;
-  width: 6px;
-  height: 1px;
-  background: var(--accent);
+.skill-index {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--steel-soft);
 }
 
 /* Certifications — subsection of Skills */
@@ -523,110 +527,131 @@ section:last-of-type { border-bottom: none; }
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--steel-soft);
-  margin-bottom: 18px;
+  margin-bottom: 6px;
   font-weight: 500;
+}
+
+.cert-list {
+  display: flex;
+  flex-direction: column;
 }
 
 .cert-row {
   display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-
-.cert-badge {
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
-  padding: 14px 20px;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+  font-size: 15px;
   font-family: var(--font-mono);
-  background: var(--surface);
 }
 
-.cert-badge .cert-code {
-  font-size: 17px;
+.cert-list > *:last-child { border-bottom: 1px solid var(--line); }
+
+.cert-row .cert-code {
   font-weight: 600;
   color: var(--ink);
-  display: block;
+  transition: color 0.15s ease;
 }
 
-.cert-badge .cert-name {
+.cert-row:hover .cert-code { color: var(--accent); }
+
+.cert-row .cert-name {
   font-size: 11.5px;
   color: var(--steel-soft);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  text-align: right;
 }
 
 /* ===================================================================
-   Projects — spec-card component
-   Reuses the hero title-block grammar (tb-row / tb-label / tb-value) for
-   the spec lines, so the site's signature engineering-drawing motif shows
-   up here too instead of a one-off card style. Club/Team work and
-   Personal Design/CAD share this same full-weight card treatment; only
-   the eyebrow label above each group differs. Software projects use a
-   separate, deliberately muted treatment further down.
+   Projects — hairline spec rows, no boxes
+   Same visual grammar as Education/Experience: a top hairline per entry,
+   a title, description, then a single mono spec line reusing tb-label /
+   tb-value. No card border, no filled surface, no rounded box — just
+   rows on paper, consistent with the rest of the site.
 =================================================================== */
 
-.proj-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  margin-bottom: 48px;
+.proj-list {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 52px;
 }
 
-.proj-card {
+.proj-list:last-of-type { margin-bottom: 0; }
+
+.proj-item {
   display: block;
-  border: 1px solid var(--line-strong);
-  background: var(--surface);
-  border-radius: var(--radius);
+  padding: 30px 0;
+  border-top: 1px solid var(--line);
   color: inherit;
-  transition: border-color 0.15s ease;
 }
 
-.proj-card:hover {
-  border-color: var(--accent);
+.proj-item:first-child { border-top: 1px solid var(--line-strong); }
+
+.proj-item-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.proj-card-eyebrow {
+.proj-item-eyebrow {
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--steel-soft);
-  padding: 20px 24px 0;
 }
 
-.proj-card h3 {
+.proj-item-arrow {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  color: var(--steel-soft);
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.proj-item:hover .proj-item-arrow {
+  color: var(--accent);
+  transform: translate(2px, -2px);
+}
+
+.proj-item h3 {
   font-size: 20px;
-  padding: 8px 24px 0;
+  margin-top: 10px;
+  transition: color 0.15s ease;
 }
 
-.proj-card .desc {
+.proj-item:hover h3 { color: var(--accent); }
+
+.proj-item .desc {
   color: var(--steel);
   font-size: 14.5px;
-  padding: 12px 24px 22px;
-  border-bottom: 1px solid var(--line);
+  margin-top: 8px;
+  max-width: 62ch;
 }
 
-.proj-card-specs .tb-row {
-  padding: 12px 24px;
-  font-size: 12.5px;
-}
-
-.proj-card-arrow {
-  display: block;
+.proj-item-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 28px;
+  margin-top: 18px;
   font-family: var(--font-mono);
   font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--accent);
-  padding: 15px 24px;
-  border-top: 1px solid var(--line);
+}
+
+.proj-item-specs .tb-label {
+  color: var(--steel-soft);
+  margin-right: 6px;
+}
+
+.proj-item-specs .tb-value {
+  color: var(--ink);
+  font-weight: 500;
 }
 
 /* Earlier software work — deliberately the quietest treatment on the page */
 .more-projects {
-  border: 1px dashed var(--line-strong);
-  border-radius: var(--radius);
-  padding: 22px 26px;
+  border-top: 1px solid var(--line-strong);
+  padding-top: 26px;
 }
 
 .more-projects h4 {
@@ -635,29 +660,30 @@ section:last-of-type { border-bottom: none; }
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--steel-soft);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   font-weight: 500;
 }
 
 .chip-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  line-height: 2.2;
 }
 
 .chip {
-  font-family: var(--font-mono);
-  font-size: 12.5px;
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
-  padding: 8px 14px;
   color: var(--steel);
-  transition: all 0.15s ease;
+  transition: color 0.15s ease;
 }
 
 .chip:hover {
-  border-color: var(--accent);
   color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.chip-sep {
+  color: var(--line-strong);
+  margin: 0 10px;
 }
 
 /* Leadership */
@@ -963,7 +989,6 @@ footer {
     padding-top: 20px;
     padding-bottom: 20px;
   }
-  .proj-grid { grid-template-columns: 1fr; }
   .leader-grid { grid-template-columns: 1fr; gap: 32px; }
   .contact-grid { grid-template-columns: 1fr; gap: 32px; }
   .edu-item {
