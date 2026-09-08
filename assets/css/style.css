@@ -549,11 +549,11 @@ section:last-of-type { border-bottom: none; }
 
 .cert-row .cert-code {
   font-weight: 600;
-  color: var(--ink);
+  color: var(--accent);
   transition: color 0.15s ease;
 }
 
-.cert-row:hover .cert-code { color: var(--accent); }
+.cert-row:hover .cert-code { color: var(--accent-dark); }
 
 .cert-row .cert-name {
   font-size: 11.5px;
@@ -716,7 +716,8 @@ section:last-of-type { border-bottom: none; }
   font-size: 15px;
 }
 
-.leader-card .stat {
+/* was: .leader-card .stat { ... } — made generic so it's reusable everywhere */
+.stat {
   color: var(--accent);
   font-weight: 600;
 }
@@ -745,7 +746,8 @@ section:last-of-type { border-bottom: none; }
 .honor-item .honor-year {
   font-family: var(--font-mono);
   font-size: 13px;
-  color: var(--steel-soft);
+  color: var(--accent);
+  font-weight: 600;
   white-space: nowrap;
 }
 
