@@ -955,16 +955,44 @@ footer {
   text-decoration: underline;
 }
 
-.project-placeholder {
-  min-height: 350px;
-  border: 1px dashed currentColor;
+/* Remove or clear the opacity rule */
+/* Two-Column Project Layout */
+.project-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 3rem;
+  align-items: start;
+  margin-top: 2rem;
+}
+
+/* Sidebar Image Stack */
+.project-sidebar {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 2rem;
-  opacity: 0.7;
+  gap: 1.25rem;
+  position: sticky;
+  top: 100px; /* Keeps images visible as the page scrolls */
+}
+
+.project-sidebar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  opacity: 1; /* Ensures crisp, natural colors */
+}
+
+/* Responsive Fallback: Stacks back to single column on tablet/mobile */
+@media (max-width: 860px) {
+  .project-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .project-sidebar {
+    position: static;
+  }
 }
 
 .project-placeholder span {
