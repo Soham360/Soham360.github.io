@@ -103,22 +103,26 @@
 
       </div>
 
-      <div class="project-model">
 
-        <model-viewer
-          src="../../cad-design/sim-racing-wheel/SimRacingWheel.glb"
-          alt="Interactive 3D model of the Sim Racing Wheel"
-          camera-controls
-          touch-action="pan-y"
-          shadow-intensity="3"
-          shadow-softness="0.5"
-          exposure="0.5"
-          tone-mapping="neutral"
-          interaction-prompt="none">
-        </model-viewer>
+      <div class="project-media-row">
+        <div class="project-model">
 
+          <!-- 1. Added id="orange-model" to target via JS -->
+          <model-viewer
+            id="orange-model"
+            src="../../cad-design/sim-racing-wheel/SimRacingWheel.glb"
+            alt="Interactive 3D model of the Sim Racing Wheel"
+            camera-controls
+            touch-action="pan-y"
+            shadow-intensity="3"
+            shadow-softness="0.5"
+            exposure="0.5"
+            tone-mapping="neutral"
+            interaction-prompt="none">
+          </model-viewer>
+
+        </div>
       </div>
-
 
       <section class="project-content">
 
@@ -197,6 +201,16 @@
           // Redirect cleanly to index.html without '#' in the URL
           window.location.href = '/index.html';
         }
+      });
+    });
+
+    // 3. Recolor the 3D GLB model to your custom orange (#E15B2D)
+    const modelViewer = document.getElementById('orange-model');
+    
+    modelViewer.addEventListener('load', () => {
+      modelViewer.model.materials.forEach(material => {
+        // [R, G, B, A] normalized values for #E15B2D
+        material.pbrMetallicRoughness.setBaseColorFactor([0.882, 0.357, 0.176, 1.0]); 
       });
     });
   </script>
