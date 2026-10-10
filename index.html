@@ -64,7 +64,7 @@
       }
 
       // In-page nav links: scroll without adding '#' to the address bar
-      const anchor = e.target.closest('.nav-links a[href*="#"]');
+      const anchor = e.target.closest('.nav-links a[href*="#"], .hero-actions a[href^="#"]');
       if (!anchor) return;
       const targetId = anchor.getAttribute('href').split('#')[1];
       if (targetId) {
