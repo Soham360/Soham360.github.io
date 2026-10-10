@@ -31,6 +31,30 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # Profile picture: if a photo is in assets/img/source/, cut out the
+      # background and write assets/img/ProfilePic.png before deploying.
+      - name: Set up Python
+        if: ${{ hashFiles('assets/img/source/*') != '' }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: scripts/requirements.txt
+      - name: Cache background-removal model
+        if: ${{ hashFiles('assets/img/source/*') != '' }}
+        uses: actions/cache@v4
+        with:
+          path: ~/.u2net
+          key: u2net-models-v1
+      - name: Remove profile picture background
+        if: ${{ hashFiles('assets/img/source/*') != '' }}
+        run: |
+          pip install -r scripts/requirements.txt
+          python scripts/remove_bg.py
+          # Keep the original (with its background) out of the deployed site
+          rm -rf assets/img/source
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

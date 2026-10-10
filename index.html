@@ -3,10 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#fbfbfd">
   <title>Soham Kamat — Mechanical Engineering</title>
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body>
@@ -24,7 +27,6 @@
   <div id="footer"></div>
 
   <script>
-    
     const includes = [
       { id: 'nav', file: 'partials/nav.html' },
       { id: 'hero', file: 'partials/hero.html' },
@@ -39,72 +41,59 @@
       { id: 'footer', file: 'partials/footer.html' }
     ];
 
-    // Helper function to scroll to a section reliably
-    function scrollToSection(sectionId) {
-      const target = document.getElementById(sectionId);
-      if (!target) return;
+    const scrollBehavior =
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
 
-      let attempts = 0;
-      const scroll = () => {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        attempts++;
-        if (attempts < 3) {
-          setTimeout(scroll, 200);
-        }
-      };
-      setTimeout(scroll, 100);
+    // One scroll, no retries. scroll-padding-top in the CSS handles the nav offset.
+    function scrollToSection(sectionId) {
+      if (sectionId === 'top') {
+        window.scrollTo({ top: 0, behavior: scrollBehavior });
+        return;
+      }
+      const target = document.getElementById(sectionId);
+      if (target) target.scrollIntoView({ behavior: scrollBehavior, block: 'start' });
     }
 
-    // Brand mark: smooth-scroll to top instead of reloading when already on home
+    // Delegated, because the nav is injected after load.
     document.addEventListener('click', function (e) {
-      const brand = e.target.closest('.brand');
-      if (!brand) return;
+      // Brand mark: scroll to top instead of reloading
+      if (e.target.closest('.brand')) {
+        e.preventDefault();
+        scrollToSection('top');
+        return;
+      }
 
-      e.preventDefault();
-      scrollToSection('top');
-
-      if (window.location.hash) {
-        history.replaceState(null, null, window.location.pathname);
+      // In-page nav links: scroll without adding '#' to the address bar
+      const anchor = e.target.closest('.nav-links a[href*="#"]');
+      if (!anchor) return;
+      const targetId = anchor.getAttribute('href').split('#')[1];
+      if (targetId) {
+        e.preventDefault();
+        scrollToSection(targetId);
       }
     });
 
-    // Load all HTML partials asynchronously
+    // Load all HTML partials; one failed fetch no longer blocks the rest
     Promise.all(
       includes.map(item =>
         fetch(item.file)
-          .then(res => res.text())
+          .then(res => (res.ok ? res.text() : ''))
           .then(data => {
             const container = document.getElementById(item.id);
-            if (container) {
-              container.outerHTML = data;
-            }
+            if (container && data) container.outerHTML = data;
           })
+          .catch(() => {})
       )
     ).then(() => {
-      // 1. Check for stored section target from sub-pages
+      window.__partialsLoaded = true;
+      document.dispatchEvent(new Event('partials:loaded'));
+
+      // Arriving from a project page: scroll to the section it asked for
       const pendingSection = sessionStorage.getItem('scrollToSection');
       if (pendingSection) {
         sessionStorage.removeItem('scrollToSection');
         scrollToSection(pendingSection);
       }
-
-      // 2. Attach click listeners to dynamically injected navbar links
-      document.querySelectorAll('.nav-links a[href*="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          const href = this.getAttribute('href');
-          const targetId = href.split('#')[1];
-
-          if (targetId) {
-            e.preventDefault();
-            scrollToSection(targetId);
-
-            // Keep address bar clean without adding '#'
-            if (window.location.hash) {
-              history.replaceState(null, null, window.location.pathname);
-            }
-          }
-        });
-      });
     });
   </script>
   <script src="assets/js/main.js"></script>

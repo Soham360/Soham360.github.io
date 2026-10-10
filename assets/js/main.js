@@ -1,106 +1,116 @@
-!(function($) {
-  "use strict";
+/* Soham Kamat — Portfolio
+   No dependencies. Handles the mobile menu, which section is active in
+   the nav, and the scroll reveal. Partials are injected by index.html,
+   so everything that touches them waits for "partials:loaded". */
+(function () {
+  'use strict';
 
-  // Return to the hero/header view, as if freshly landed on the homepage
-  function goHome() {
-    $('#header').removeClass('header-top');
-    $('.nav-menu .active, .mobile-nav .active').removeClass('active');
-    $('.nav-menu, .mobile-nav').find('a[href="#header"]').parent('li').addClass('active');
-    $('section').removeClass('section-show');
-
-    // Strip any leftover hash so the URL always stays clean
-    if (window.location.hash && history.replaceState) {
-      history.replaceState(null, document.title, window.location.pathname + window.location.search);
-    }
-
-    if ($('body').hasClass('mobile-nav-active')) {
-      $('body').removeClass('mobile-nav-active');
-      $('.mobile-nav-toggle i').toggleClass('icofont-navigation-menu icofont-close');
-      $('.mobile-nav-overly').fadeOut();
-    }
-
-    // #header scrolls internally (overflow-y: auto), and the page itself may too
-    $('#header').stop().animate({ scrollTop: 0 }, 400);
-    $('html, body').stop().animate({ scrollTop: 0 }, 400);
+  /* ---- Mobile menu (delegated: the nav is injected after load) ---- */
+  function setMenu(open) {
+    var toggle = document.getElementById('navToggle');
+    var links = document.getElementById('navLinks');
+    if (!toggle || !links) return;
+    links.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
 
-  // Explicit data-page="home" wins; otherwise fall back to path sniffing
-  function isHomePage() {
-    if (document.body.dataset.page) {
-      return document.body.dataset.page === 'home';
-    }
-    var path = window.location.pathname.replace(/index\.html?$/, '');
-    return path === '/' || path === '';
+  function menuIsOpen() {
+    var links = document.getElementById('navLinks');
+    return !!links && links.classList.contains('open');
   }
 
-  // Brand mark: smooth-scroll home if already here, otherwise navigate home cleanly
-  $(document).on('click', '#brand-mark', function(e) {
-    e.preventDefault();
-    if (isHomePage()) {
-      goHome();
-    } else {
-      window.location.href = '/';
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('#navToggle')) {
+      setMenu(!menuIsOpen());
+      return;
+    }
+    // Any nav link closes the sheet; so does a tap outside it
+    if (e.target.closest('#navLinks a') || !e.target.closest('#navLinks')) {
+      if (menuIsOpen()) setMenu(false);
     }
   });
 
-  // Nav Menu
-  $(document).on('click', '.nav-menu a, .mobile-nav a', function(e) {
-    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-      var hash = this.hash;
-      var target = $(hash);
-      if (target.length) {
-        e.preventDefault();
-
-        if ($(this).parents('.nav-menu, .mobile-nav').length) {
-          $('.nav-menu .active, .mobile-nav .active').removeClass('active');
-          $(this).closest('li').addClass('active');
-        }
-
-        if (hash == '#header') {
-          goHome();
-          return;
-        }
-
-        if (!$('#header').hasClass('header-top')) {
-          $('#header').addClass('header-top');
-          setTimeout(function() {
-            $("section").removeClass('section-show');
-            $(hash).addClass('section-show');
-          }, 350);
-        } else {
-          $("section").removeClass('section-show');
-          $(hash).addClass('section-show');
-        }
-
-        if ($('body').hasClass('mobile-nav-active')) {
-          $('body').removeClass('mobile-nav-active');
-          $('.mobile-nav-toggle i').toggleClass('icofont-navigation-menu icofont-close');
-          $('.mobile-nav-overly').fadeOut();
-        }
-
-        return false;
-      }
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && menuIsOpen()) {
+      setMenu(false);
+      var toggle = document.getElementById('navToggle');
+      if (toggle) toggle.focus();
     }
   });
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const navToggle = document.getElementById('navToggle');
-    const navLinks = document.getElementById('navLinks');
+  /* ---- Wayfinding: mark the nav link for the section on screen ---- */
+  function initNavState() {
+    if (!('IntersectionObserver' in window)) return;
 
-    if (navToggle && navLinks) {
-      navToggle.addEventListener('click', () => {
-        const isOpen = navLinks.classList.toggle('open');
-        navToggle.setAttribute('aria-expanded', isOpen);
+    var links = Array.prototype.slice.call(
+      document.querySelectorAll('.nav-links a[href^="#"]')
+    );
+    var byId = {};
+    links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+
+    function setActive(id) {
+      links.forEach(function (a) {
+        var on = byId[id] === a;
+        a.classList.toggle('is-active', on);
+        if (on) a.setAttribute('aria-current', 'location');
+        else a.removeAttribute('aria-current');
       });
+    }
 
-      navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          navLinks.classList.remove('open');
-          navToggle.setAttribute('aria-expanded', 'false');
+    // A thin band across the middle of the viewport decides the section
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+
+    document.querySelectorAll('section[id]').forEach(function (s) { io.observe(s); });
+
+    // Back at the hero: nothing is active
+    var hero = document.getElementById('top');
+    if (hero) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) setActive('');
         });
-      });
+      }, { rootMargin: '-45% 0px -50% 0px' }).observe(hero);
     }
-  });
+  }
 
+  /* ---- Scroll reveal ---- */
+  var REVEAL = [
+    '.section-head', '.about-grid', '.proj-item', '.more-projects',
+    '.edu-item', '.tl-item', '.skill-col', '.skills-subhead',
+    '.leader-card', '.honor-item', '.contact-lead', '.contact-list'
+  ].join(',');
 
-})(jQuery);
+  function initReveal() {
+    if (!('IntersectionObserver' in window)) return;
+
+    var targets = document.querySelectorAll(REVEAL);
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+
+    targets.forEach(function (el) {
+      // Small stagger among siblings, capped so long lists don't drag
+      var index = Array.prototype.indexOf.call(el.parentElement.children, el);
+      el.style.setProperty('--i', Math.min(index, 4));
+      el.classList.add('reveal');
+      io.observe(el);
+    });
+  }
+
+  function init() {
+    initNavState();
+    initReveal();
+  }
+
+  if (window.__partialsLoaded) init();
+  else document.addEventListener('partials:loaded', init, { once: true });
+})();
