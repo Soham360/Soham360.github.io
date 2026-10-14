@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#fbfbfd">
+
+  <!-- Hidden page: keep it out of search results. It is not linked from anywhere on the site. -->
+  <meta name="robots" content="noindex, nofollow, noarchive">
+
+  <title>Soham Kamat | Portfolio</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link href="/assets/css/style.css" rel="stylesheet">
+
+  <script
+    type="module"
+    src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js">
+  </script>
+
+  <style>
+    /* Page-specific layout only. Colors, type, and spacing come from style.css. */
+
+    .pf-intro { max-width: 56rem; margin-bottom: 2rem; }
+    /* ---- Left rail: nearly hidden until hovered or focused ---- */
+    .pf-rail {
+      position: fixed;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 90;
+      width: 1.25rem;
+      padding: 0.5rem 0;
+      overflow: hidden;
+      background: transparent;
+      border: 1px solid transparent;
+      border-left: 0;
+      border-radius: 0 var(--radius-m) var(--radius-m) 0;
+      transition:
+        width 0.45s var(--ease-spring),
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.3s ease;
+    }
+    .pf-rail ul { list-style: none; margin: 0; padding: 0; width: 12.5rem; }
+    .pf-rail a {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      height: 2.25rem;
+      padding-left: 0.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--steel);
+      white-space: nowrap;
+    }
+    .pf-rail a::before {
+      content: "";
+      flex: none;
+      width: 0.75rem;
+      height: 2px;
+      border-radius: 1px;
+      background: var(--line-strong);
+      transition: width 0.3s var(--ease-spring), background-color 0.2s ease;
+    }
+    .pf-rail a span { opacity: 0; transition: opacity 0.15s ease; }
+    .pf-rail a.is-active { color: var(--ink); }
+    .pf-rail a.is-active::before { width: 1rem; background: var(--accent); }
+    .pf-rail:hover,
+    .pf-rail:focus-within {
+      width: 12.5rem;
+      background: var(--surface);
+      -webkit-backdrop-filter: blur(24px) saturate(160%);
+      backdrop-filter: blur(24px) saturate(160%);
+      border-color: var(--line);
+      box-shadow: var(--shadow-lg);
+    }
+    .pf-rail:hover a span,
+    .pf-rail:focus-within a span { opacity: 1; transition-delay: 0.1s; }
+    @media (hover: hover) { .pf-rail a:hover { color: var(--accent-text); } }
+
+    /* Touch screens and narrow windows use the top menu instead */
+    @media (max-width: 860px), (hover: none) { .pf-rail { display: none; } }
+
+    /* ---- Top nav dropdowns ---- */
+    .nav-dropdown { list-style: none; margin: 0; padding: 0; }
+
+    @media (min-width: 701px) {
+      .nav-links { align-self: stretch; }
+      .nav-links > li { display: flex; align-items: center; position: relative; }
+
+      .has-dropdown > a::after {
+        content: "";
+        display: inline-block;
+        width: 0.3125rem;
+        height: 0.3125rem;
+        margin-left: 0.4rem;
+        border-right: 1.5px solid currentColor;
+        border-bottom: 1.5px solid currentColor;
+        transform: translateY(-2px) rotate(45deg);
+      }
+
+      .nav-dropdown {
+        position: absolute;
+        top: 100%;
+        left: -0.75rem;
+        min-width: 11rem;
+        padding: 0.375rem;
+        background: var(--sheet-bg);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-m);
+        box-shadow: var(--shadow-lg);
+        -webkit-backdrop-filter: blur(28px) saturate(180%);
+        backdrop-filter: blur(28px) saturate(180%);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-0.25rem);
+        transition:
+          opacity 0.2s ease,
+          transform 0.35s var(--ease-spring),
+          visibility 0s linear 0.35s;
+      }
+      .has-dropdown:focus-within > .nav-dropdown {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        transition-delay: 0s;
+      }
+      @media (hover: hover) {
+        .has-dropdown:hover > .nav-dropdown {
+          opacity: 1;
+          visibility: visible;
+          transform: none;
+          transition-delay: 0s;
+        }
+      }
+      .nav-links .nav-dropdown a {
+        display: block;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        white-space: nowrap;
+      }
+      @media (hover: hover) {
+        .nav-links .nav-dropdown a:hover { background: rgba(0, 0, 0, 0.05); }
+      }
+    }
+
+    /* In the mobile menu sheet the sub-links are always listed under their parent */
+    @media (max-width: 700px) {
+      .nav-links .nav-dropdown { padding: 0 0 0.5rem 1rem; }
+      .nav-links .nav-dropdown li + li { border-top: 0; }
+      .nav-links .nav-dropdown a {
+        padding: 0.35rem 0;
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--steel);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pf-rail, .pf-rail a::before, .nav-dropdown { transition: none; }
+    }
+
+    .pf-project {
+      border-top: 1px solid var(--line-strong);
+      padding-top: 2rem;
+      margin-top: 3.5rem;
+    }
+    .pf-project:first-of-type { margin-top: 0; }
+
+    .pf-project h3 {
+      font-size: clamp(1.625rem, 3.2vw, 2.25rem);
+      letter-spacing: -0.025em;
+      margin-bottom: 0.75rem;
+    }
+
+    .pf-lede {
+      max-width: 47rem;
+      font-size: 1.125rem;
+      line-height: 1.45;
+      color: var(--steel);
+    }
+
+    .pf-body { max-width: 50rem; }
+    .pf-body p { line-height: 1.6; margin-top: 1rem; }
+    .pf-body h4 {
+      font-size: 1.125rem;
+      letter-spacing: -0.015em;
+      margin-top: 1.75rem;
+    }
+    .pf-body ul { line-height: 1.6; padding-left: 1.25rem; margin: 0.75rem 0 0; }
+
+    .pf-project .project-info,
+    .pf-project .project-media-row,
+    .pf-project .pf-body { margin-top: 1.5rem; }
+
+    .pf-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .pf-gallery img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-m);
+    }
+
+    /* Software: same structure, quieter */
+    .pf-sw h3 { font-size: 1.375rem; margin-bottom: 0.5rem; }
+    .pf-sw .pf-lede { font-size: 1rem; }
+    .pf-stack {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--steel);
+      margin-top: 1rem;
+    }
+    .pf-sw .project-links { margin-top: 1rem; }
+    .pf-sw .project-links a { min-height: 2.25rem; padding: 0.4rem 0.95rem; font-size: 0.875rem; }
+
+    .pf-videos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    .pf-videos .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+    }
+    .pf-videos iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    @media (max-width: 700px) {
+      .pf-gallery { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="site-nav">
+    <div class="wrap">
+      <a href="/" class="brand">
+        <span class="brand-mark">[</span>SK<span class="brand-mark">]</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li class="has-dropdown">
+          <a href="#clubs">Club &amp; Team</a>
+          <ul class="nav-dropdown">
+            <li><a href="#sarp">SARP</a></li>
+            <li><a href="#steel-bridge">Steel Bridge</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#cad">Design &amp; CAD</a>
+          <ul class="nav-dropdown">
+            <li><a href="#phone-holder">Phone Holder</a></li>
+            <li><a href="#sim-wheel">Sim Wheel</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#software">Software</a>
+          <ul class="nav-dropdown">
+            <li><a href="#jobify">Jobify</a></li>
+            <li><a href="#pluto">Pluto</a></li>
+            <li><a href="#cars">Cars</a></li>
+            <li><a href="#lyntax">Lyntax</a></li>
+            <li><a href="#recipies">ReciPies</a></li>
+            <li><a href="#petite-pandas">Petite Pandas</a></li>
+          </ul>
+        </li>
+        <li><a href="#contact">Contact</a></li>
+        <li>
+          <a
+            href="/assets/resume/Kamat_Soham_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="nav-cta"
+          >
+            Resume ↗
+          </a>
+        </li>
+      </ul>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+
+  <nav class="pf-rail" aria-label="Portfolio sections">
+    <ul>
+      <li><a href="#sarp"><span>SARP</span></a></li>
+      <li><a href="#steel-bridge"><span>Steel Bridge</span></a></li>
+      <li><a href="#phone-holder"><span>Phone Holder</span></a></li>
+      <li><a href="#sim-wheel"><span>Sim Wheel</span></a></li>
+      <li><a href="#software"><span>Software</span></a></li>
+      <li><a href="#contact"><span>Contact</span></a></li>
+    </ul>
+  </nav>
+
+
+  <main class="project-page" style="padding-bottom: 0;">
+
+    <div class="wrap">
+      <header class="project-page-header pf-intro">
+        <p class="eyebrow">Portfolio</p>
+        <h1>Soham&nbsp;Kamat</h1>
+        <p>
+          Mechanical Engineering student at the University of Washington (Class of
+          2028), focused on mechanical design and manufacturing with a target career
+          in aerospace.
+        </p>
+        <p style="margin-top: 0.75rem;">
+          This page showcases my fabrication, design, and software projects in one
+          place.
+        </p>
+      </header>
+    </div>
+
+
+    <!-- ===== Club & Team Work ===== -->
+
+    <section id="clubs">
+      <div class="wrap">
+
+        <div class="section-head">
+          <h2>Club &amp; Team Work</h2>
+        </div>
+
+        <article class="pf-project" id="sarp">
+          <p class="eyebrow">UW · Aerospace</p>
+          <h3>Society for Advanced Rocket Propulsion</h3>
+          <p class="pf-lede">
+            Machining aluminum propulsion hardware and developing 3D-printed tooling
+            for composite structural couplers.
+          </p>
+
+          <div class="project-info">
+            <div class="project-info-item">
+              <span class="project-info-label">Role</span>
+              <span class="project-info-value">Manufacturing</span>
+            </div>
+            <div class="project-info-item">
+              <span class="project-info-label">Tools &amp; Techniques</span>
+              <span class="project-info-value">Manual Milling · 3D Printed Tooling · Carbon Fiber &amp; Fiberglass Layups</span>
+            </div>
+            <div class="project-info-item">
+              <span class="project-info-label">Since</span>
+              <span class="project-info-value">October 2025</span>
+            </div>
+          </div>
+
+          <div class="pf-body">
+            <h4>Overview</h4>
+            <p>
+              I am a member of the manufacturing team at the University of
+              Washington's Society for Advanced Rocket Propulsion (SARP). The team
+              builds structural and propulsion hardware for high-power rocket
+              systems, and my work covers precision machining and composite
+              manufacturing research.
+            </p>
+
+            <h4>Machining and engineering drawings</h4>
+            <p>
+              I work from engineering drawings to machine custom aluminum parts on a
+              manual mill. Stock is cut to length on the band saw, then set up and
+              machined to size. Before assembly, I check each part against the
+              tolerances on the drawing so the finished hardware is ready to fly.
+            </p>
+
+            <h4>Composite coupler development</h4>
+            <p>
+              I also research tooling processes for the rocket's structural couplers.
+              The work uses 3D-printed molds to lay up carbon fiber and fiberglass
+              parts. I vary mold geometry, surface preparation, release agents, and
+              layup technique, with the goal of producing lightweight, high-strength
+              structural joints.
+            </p>
+          </div>
+        </article>
+
+
+        <article class="pf-project" id="steel-bridge">
+          <p class="eyebrow">UW · Structural Fabrication</p>
+          <h3>UW Steel Bridge</h3>
+          <p class="pf-lede">
+            Fabrication and timed assembly of a scale steel bridge for the University
+            of Washington AISC Steel Bridge team, which placed 2nd overall at the
+            regional competition and 18th at nationals.
+          </p>
+
+          <div class="project-info">
+            <div class="project-info-item">
+              <span class="project-info-label">Role</span>
+              <span class="project-info-value">Construction Subteam &amp; Timed Builder</span>
+            </div>
+            <div class="project-info-item">
+              <span class="project-info-label">Tools</span>
+              <span class="project-info-value">Welding · Milling · Rapid Assembly</span>
+            </div>
+            <div class="project-info-item">
+              <span class="project-info-label">Since</span>
+              <span class="project-info-value">October 2025</span>
+            </div>
+          </div>
+
+          <div class="pf-body">
+            <h4>Overview</h4>
+            <p>
+              I am a member of the construction subteam, which fabricates and
+              assembles the team's bridge for regional and national intercollegiate
+              competitions. The bridge is built to the competition rulebook and
+              judged on both assembly time and structural performance.
+            </p>
+
+            <h4>Fabrication and assembly</h4>
+            <p>
+              My work includes welding and machining steel structural members to
+              specification, fitting parts in the shop, and rehearsing rapid
+              assembly. When parts do not come together as the drawings predicted,
+              the subteam reworks them. At competition I served on the official
+              build team and assembled the bridge on the floor within the
+              competition's timing rules and tolerances.
+            </p>
+
+            <h4>Competition results</h4>
+            <p>
+              At the regional competition hosted by the University of Alaska
+              Anchorage, the team placed 2nd overall and qualified for the national
+              finals. Category results were:
+            </p>
+            <ul>
+              <li>2nd place: construction speed</li>
+              <li>2nd place: lightness</li>
+              <li>2nd place: stiffness</li>
+              <li>2nd place: efficiency</li>
+              <li>2nd place: economy</li>
+              <li>4th place: aesthetics</li>
+            </ul>
+            <p>
+              At the AISC Student Steel Bridge Competition National Finals at the
+              University of Texas at El Paso, the team placed 18th nationally.
+            </p>
+          </div>
+
+          <div class="pf-gallery">
+            <img src="/projects/clubs/steel-bridge/IMG_1209.jpg" alt="Team posing with the Washington flag" loading="lazy">
+            <img src="/projects/clubs/steel-bridge/IMG_1292.jpeg" alt="Team cheer" loading="lazy">
+            <img src="/projects/clubs/steel-bridge/IMG_9558.jpeg" alt="Team posing with regional awards" loading="lazy">
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+
+    <!-- ===== Personal Design & CAD ===== -->
+
+    <section id="cad">
+      <div class="wrap">
+
+        <div class="section-head">
+          <h2>Personal Design &amp; CAD</h2>
+        </div>
+
+        <article class="pf-project" id="phone-holder">
+          <p class="eyebrow">Design / CAD</p>
+          <h3>Phone Holder</h3>
+          <p class="pf-lede">
+            A multi-part phone holder modeled and tested as a full moving assembly in
+            SolidWorks.
+          </p>
+
+          <div class="project-info">
+            <div class="project-info-item">
+              <span class="project-info-label">Category</span>
+              <span class="project-info-value">Mechanical Design</span>
+            </div>
+            <div class="project-info-item">
+              <span class="project-info-label">Tools</span>
+              <span class="project-info-value">SolidWorks · 3D Printing</span>
+            </div>
+            <div class="project-info-item">
+              <span class="project-info-label">Status</span>
+              <span class="project-info-value"><span class="stat">Completed</span> &#x2714;</span>
+            </div>
+          </div>
+
+          <div class="project-media-row">
+            <div class="project-media" style="overflow: hidden;">
+              <video
+                class="project-video"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                src="/projects/cad-design/phone-holder/PhoneHolder.mp4"
+                aria-label="Phone Holder assembly animation"
+                style="width: 110%; height: 110%; object-fit: cover;">
+              </video>
+            </div>
+
+            <div class="project-model">
+              <model-viewer
+                class="orange-model"
+                src="/projects/cad-design/phone-holder/PhoneHolder.glb"
+                alt="Interactive 3D model of the Phone Holder"
+                camera-controls
+                touch-action="pan-y"
+                shadow-intensity="3"
+                shadow-softness="0.5"
+                exposure="0.5"
+                tone-mapping="neutral"
+                interaction-prompt="none"
+                loading="lazy">
+              </model-viewer>
+            </div>
+          </div>
+
+          <div class="pf-body">
+            <h4>Overview</h4>
+            <p>
+              This project focused on assembly design. The holder has several
+              components that must fit and move correctly relative to one another, so
+              I modeled each part separately and then built them into a complete
+              assembly.
+            </p>
+
+            <h4>Design and validation</h4>
+            <p>
+              I assembled the mechanism in SolidWorks and tested its motion to
+              confirm it worked as intended before rendering the animation shown
+              above. The parts are designed for 3D printing.
+            </p>
+
+            <h4>Application</h4>
+            <p>
+              The cutout in the holder is engineered to fit an Anker MagGo 622 power
+              bank, which allows the phone to charge while mounted. The resulting
+              geometry also holds the phone at a suitable angle for watching video in
+              landscape.
+            </p>
+          </div>
+        </article>
+
+
+        <article class="pf-project" id="sim-wheel">
+          <p class="eyebrow">Design / CAD</p>
+          <h3>Racing Sim Wheel</h3>
+          <p class="pf-lede">
+            A 3D-printed sim racing steering wheel built around a magnetic rotary
+            encoder and a microcontroller that reports steering position to a PC
+            over USB.
+          </p>
+
+          <div class="project-info">
+            <div class="project-info-item">
+              <span class="project-info-label">Category</span>
+              <span class="project-info-value">Mechanical / Electronics</span>
+            </div>
+            <div class="project-info-item">
+              <span class="project-info-label">Tools</span>
+              <span class="project-info-value">SolidWorks · Arduino · 3D Printing</span>
+            </div>
+            <div class="project-info-item">
+              <span class="project-info-label">Status</span>
+              <span class="project-info-value"><span class="stat">In Progress</span></span>
+            </div>
+          </div>
+
+          <div class="project-media-row" style="grid-template-columns: 1fr;">
+            <div class="project-model">
+              <model-viewer
+                class="orange-model"
+                src="/projects/cad-design/sim-racing-wheel/SimRacingWheel.glb"
+                alt="Interactive 3D model of the Sim Racing Wheel"
+                camera-controls
+                touch-action="pan-y"
+                shadow-intensity="3"
+                shadow-softness="0.5"
+                exposure="0.5"
+                tone-mapping="neutral"
+                interaction-prompt="none"
+                loading="lazy">
+              </model-viewer>
+            </div>
+          </div>
+
+          <div class="pf-body">
+            <h4>Overview</h4>
+            <p>
+              The goal is a functional wheel for PC racing games, so the design is
+              built around delivering steering data to the computer over USB. The
+              project combines mechanical design, CAD, fabrication, electronics, and
+              embedded programming.
+            </p>
+
+            <h4>Mechanical design</h4>
+            <p>
+              A steel shaft runs through bearings at the center of the wheel, and the
+              surrounding structure is 3D printed. The main design constraint was a
+              compact mechanism that still allows roughly 540 degrees of rotation.
+            </p>
+
+            <h4>Electronics</h4>
+            <p>
+              A magnetic rotary encoder tracks the position of the shaft. A
+              microcontroller reads the encoder and reports that position to the
+              computer over USB.
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+
+    <!-- ===== Earlier Software Projects ===== -->
+
+    <section id="software">
+      <div class="wrap">
+
+        <div class="section-head">
+          <h2>Earlier Software Projects</h2>
+        </div>
+
+        <article class="pf-project pf-sw" id="jobify">
+          <p class="eyebrow">Web Application</p>
+          <h3>Jobify</h3>
+          <p class="pf-lede">
+            An internship management platform with student, employer, and
+            administrator views and a built-in support chatbot.
+          </p>
+          <div class="pf-body">
+            <p>
+              Jobify addresses the disorganization that develops when internship
+              applications are managed through email, spreadsheets, and file
+              attachments. Students, employers, and administrators work from separate
+              views of a single application pipeline, which keeps applications,
+              feedback, and file submissions in one place.
+            </p>
+            <ul>
+              <li>Role-based dashboards for students, employers, and administrators</li>
+              <li>Direct messaging between students and employers</li>
+              <li>A chatbot that answers common questions</li>
+              <li>File uploads and application status tracking</li>
+            </ul>
+          </div>
+          <p class="pf-stack">HTML · CSS · JavaScript · Java · Spring Boot · Amazon EC2 · Amazon Route 53</p>
+          <div class="project-links">
+            <a href="https://github.com/Men-In-Brown/Jobify" target="_blank" rel="noopener noreferrer">Frontend Repository ↗</a>
+            <a href="https://github.com/Men-In-Brown/Schaal-Backend" target="_blank" rel="noopener noreferrer">Backend Repository ↗</a>
+          </div>
+          <div class="pf-videos">
+            <div class="video-container">
+              <iframe src="https://www.youtube.com/embed/teSmIQiUGGM" title="Jobify Demo 1" loading="lazy"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="video-container">
+              <iframe src="https://www.youtube.com/embed/hJ8yDor8lFk" title="Jobify Demo 2" loading="lazy"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="pf-project pf-sw" id="pluto">
+          <p class="eyebrow">Web Application</p>
+          <h3>Pluto</h3>
+          <p class="pf-lede">
+            A student planner that combines a bell schedule calculator, live weather,
+            and a shared task and announcement board.
+          </p>
+          <div class="pf-body">
+            <p>
+              Pluto was built around two factors that shape a student's day: the bell
+              schedule and the weather. It calculates the current class period and
+              the time remaining, uses the forecast to suggest clothing, and gives
+              students a shared board for tasks and announcements in place of group
+              chats.
+            </p>
+            <ul>
+              <li>Bell schedule calculator: period times are entered once, and the app shows the current period and time left</li>
+              <li>Weather integration with current conditions and a clothing suggestion</li>
+              <li>Shared board for reminders, deadlines, and announcements</li>
+            </ul>
+          </div>
+          <p class="pf-stack">HTML · CSS · JavaScript · Amazon EC2 · Amazon Route 53 · Spring Boot · Java</p>
+          <div class="project-links">
+            <a href="https://github.com/Soham360/sturdy-fiesta" target="_blank" rel="noopener noreferrer">Frontend Repository ↗</a>
+            <a href="https://github.com/Orlando-c/EDNP-Backend" target="_blank" rel="noopener noreferrer">Backend Repository ↗</a>
+          </div>
+          <div class="pf-videos">
+            <div class="video-container">
+              <iframe src="https://www.youtube.com/embed/nDevaS96jvQ?start=70" title="Pluto Demo Video" loading="lazy"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="pf-project pf-sw" id="cars">
+          <p class="eyebrow">Web Application</p>
+          <h3>Cars</h3>
+          <p class="pf-lede">
+            A 12-car grid that reorders itself in real time depending on which
+            sorting algorithm is selected.
+          </p>
+          <div class="pf-body">
+            <p>
+              This tool visualizes sorting algorithms beyond Big-O notation. Twelve
+              cars with distinct stats are arranged in a grid and reordered live
+              using bubble, selection, merge, or insertion sort. A companion table
+              records each run's execution time so the algorithms can be compared
+              directly.
+            </p>
+            <ul>
+              <li>Animated reordering as each algorithm runs</li>
+              <li>Four algorithms, selectable at any time</li>
+              <li>Runtime table for side-by-side comparison</li>
+            </ul>
+          </div>
+          <p class="pf-stack">HTML · CSS · JavaScript · Amazon EC2 · Amazon Route 53 · Spring Boot · Java</p>
+          <div class="project-links">
+            <a href="https://github.com/AniCricKet/gear-gurus2.0" target="_blank" rel="noopener noreferrer">Frontend Repository ↗</a>
+            <a href="https://github.com/Soham360/digital-drifters" target="_blank" rel="noopener noreferrer">Backend Repository ↗</a>
+          </div>
+          <div class="pf-videos">
+            <div class="video-container">
+              <iframe src="https://www.youtube.com/embed/c68lRunc81U" title="Cars Demo Video" loading="lazy"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="pf-project pf-sw" id="lyntax">
+          <p class="eyebrow">Web Application</p>
+          <h3>Lyntax</h3>
+          <p class="pf-lede">
+            A hangman-style game for reviewing computer science vocabulary, built on
+            a Flask API and a Vue frontend.
+          </p>
+          <div class="pf-body">
+            <p>
+              Lyntax replaces flashcards with a game of hangman for learning computer
+              science terminology. A Flask REST API serves terms from a database, a
+              Vue.js frontend handles gameplay, and the application is hosted on
+              Amazon EC2.
+            </p>
+            <ul>
+              <li>Terms come from a database, so rounds vary</li>
+              <li>Letters are revealed on correct guesses, following classic hangman rules</li>
+              <li>The hangman graphic updates with each incorrect guess</li>
+            </ul>
+          </div>
+          <p class="pf-stack">HTML · Flask · Python · Vue.js · CSS · JavaScript · Amazon EC2</p>
+          <div class="project-links">
+            <a href="https://github.com/RyanHaki/lyntax_final" target="_blank" rel="noopener noreferrer">Frontend Repository ↗</a>
+            <a href="https://github.com/AniCricKet/fried-giggles" target="_blank" rel="noopener noreferrer">Backend Repository ↗</a>
+          </div>
+        </article>
+
+
+        <article class="pf-project pf-sw" id="recipies">
+          <p class="eyebrow">Web Application</p>
+          <h3>ReciPies</h3>
+          <p class="pf-lede">
+            A recipe search tool that filters results by dietary restriction and lets
+            users rate recipes they have cooked.
+          </p>
+          <div class="pf-body">
+            <p>
+              ReciPies helps users find recipes that fit their diet without scrolling
+              through recipe blogs. Results can be filtered by dietary restriction,
+              and users can review recipes they have tried and save favorites for
+              later.
+            </p>
+            <ul>
+              <li>Search filtered by dietary restriction</li>
+              <li>Ratings and notes on recipes the user has cooked</li>
+              <li>Saved favorites that can be found without searching again</li>
+            </ul>
+          </div>
+          <p class="pf-stack">Python · Flask · HTML · CSS · JavaScript · Amazon EC2</p>
+          <div class="project-links">
+            <a href="https://github.com/tanayp327/reciPies" target="_blank" rel="noopener noreferrer">Frontend Repository ↗</a>
+            <a href="https://github.com/tanayp327/reciPiesFlask" target="_blank" rel="noopener noreferrer">Backend Repository ↗</a>
+          </div>
+          <div class="pf-videos">
+            <div class="video-container">
+              <iframe src="https://www.youtube.com/embed/2OPjDXT1cYg?mute=1&amp;cc_load_policy=3" title="ReciPies Demo Video" loading="lazy"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="pf-project pf-sw" id="petite-pandas">
+          <p class="eyebrow">Web Application</p>
+          <h3>Petite Pandas</h3>
+          <p class="pf-lede">
+            An NBA statistics dashboard for the 2022 to 2023 season, built with
+            pandas and Flask.
+          </p>
+          <div class="pf-body">
+            <p>
+              Petite Pandas compiles NBA statistics from the 2022 to 2023 season so
+              that players and teams can be sorted and compared without a
+              spreadsheet. The backend processes the data with pandas and NumPy, and
+              the frontend presents it as charts.
+            </p>
+            <ul>
+              <li>Full performance breakdowns for any team that season</li>
+              <li>Sorting by points, rebounds, assists, or any other stat</li>
+              <li>Pie charts and bar graphs in place of raw tables</li>
+            </ul>
+          </div>
+          <p class="pf-stack">HTML · Flask · Python · CSS · JavaScript · Amazon EC2 · pandas · NumPy</p>
+          <div class="project-links">
+            <a href="https://github.com/paravsalaniwal/T3Project" target="_blank" rel="noopener noreferrer">Frontend Repository ↗</a>
+            <a href="https://github.com/TayKimmy/t3_backend" target="_blank" rel="noopener noreferrer">Backend Repository ↗</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+
+    <!-- ===== Contact ===== -->
+
+    <section id="contact" class="contact-section">
+      <div class="wrap contact-grid">
+        <div class="contact-lead">
+          <h2>Contact</h2>
+          <p>
+            Available for engineering internships and co-op positions in aerospace
+            and mechanical design.
+          </p>
+        </div>
+        <div class="contact-list">
+          <a href="mailto:sohamkamat10@gmail.com">
+            <span class="c-label">Email</span>
+            <span>sohamkamat10@gmail.com</span>
+          </a>
+          <a href="https://www.linkedin.com/in/kamat-soham/" target="_blank" rel="noopener noreferrer">
+            <span class="c-label">LinkedIn</span>
+            <span>/in/kamat-soham</span>
+          </a>
+          <a href="https://github.com/Soham360" target="_blank" rel="noopener noreferrer">
+            <span class="c-label">GitHub</span>
+            <span>/Soham360</span>
+          </a>
+          <a href="/assets/resume/Kamat_Soham_Resume.pdf" target="_blank" rel="noopener noreferrer">
+            <span class="c-label">Resume</span>
+            <span>PDF ↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <footer>
+    <div class="wrap" style="display:flex; justify-content:space-between; width:100%;">
+      <span>© 2026 Soham Kamat</span>
+    </div>
+  </footer>
+
+
+  <script>
+    // Tell main.js there are no injected partials on this page, so the
+    // nav highlighting and menu logic start immediately.
+    window.__partialsLoaded = true;
+
+    // Recolor the 3D models to the brand orange (#E15B2D).
+    document.querySelectorAll('model-viewer.orange-model').forEach(function (viewer) {
+      viewer.addEventListener('load', function () {
+        viewer.model.materials.forEach(function (material) {
+          material.pbrMetallicRoughness.setBaseColorFactor([0.882, 0.357, 0.176, 1.0]);
+        });
+      });
+    });
+
+    // Highlight the rail entry for the section in view.
+    (function () {
+      if (!('IntersectionObserver' in window)) return;
+      var links = Array.prototype.slice.call(document.querySelectorAll('.pf-rail a'));
+      var byId = {};
+      links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+
+      function setActive(id) {
+        links.forEach(function (a) {
+          var on = byId[id] === a;
+          a.classList.toggle('is-active', on);
+          if (on) a.setAttribute('aria-current', 'location');
+          else a.removeAttribute('aria-current');
+        });
+      }
+
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+
+      Object.keys(byId).forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) io.observe(el);
+      });
+    })();
+  </script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>
