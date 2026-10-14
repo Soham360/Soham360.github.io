@@ -1139,6 +1139,7 @@ footer {
 
 @media (max-width: 700px) {
   .nav-toggle { display: flex; }
+  .project-figures { grid-template-columns: 1fr; }
 
   /* Menu sheet: materializes from the toggle (blur and scale together) */
   .nav-links {
@@ -1232,4 +1233,30 @@ footer {
   .nav-links.open { transition-delay: 0s; }
 
   .nav-toggle span { transition: opacity 0.2s ease; }
+}
+
+.project-figures {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-top: 2rem;
+  max-width: 50rem;
+}
+
+.project-figures figure { margin: 0; }
+
+.project-figures figure.wide { grid-column: 1 / -1; }
+
+.project-figures img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+}
+
+.project-figures figcaption {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--steel-soft);
+  margin-top: 0.5rem;
 }
